@@ -16,25 +16,26 @@ As of this writing, this library will provide:
 2. A way to implement the most common endpoints using those primitives
 3. A path forward to flesh out the rest of the spec
 
-##### So what is that really?
+#### So what is that, really?
 
-Basically, you will be able to implement an OAuth server similar to what [Facebook](http://developers.facebook.com/docs/authentication/), [Dailymotion](http://www.dailymotion.com/doc/api/authentication.html), [Instagram](http://instagram.com/developer/auth/), [and](http://gowalla.com/api/docs/oauth) [others](http://code.google.com/apis/accounts/docs/OAuth2.html) offer with their services since they too cover the minimum viable product.
+Basically, you will be able to implement an OAuth server similar to what [Facebook](http://developers.facebook.com/docs/authentication/), [Dailymotion](http://www.dailymotion.com/doc/api/authentication.html), [Instagram](http://instagram.com/developer/auth/), [and](http://gowalla.com/api/docs/oauth) [others](http://code.google.com/apis/accounts/docs/OAuth2.html) offer since they appear to all cover a fairly standard subset of the whole spec.
 
 ## So Let's Get Started
 
-Here is how easy it is to get an OAuth provider up and running:
+Now that your expectations are sufficiently low, here is how easy it is to get an OAuth provider up and running:
 
-	from oauh20 import Server, Client, Token
+```python
+	from ficture.oauth import Server, Client
 	
 	# create a default Client
-	client = oauth20.Client.storage.create(
+	client = Client.storage.create(
 		client_id='1234',
 		client_secret='abcd1234',
 		client_type='server',
 		redirect_uris=['http://example.com/redirect/'])
 	 
 	# create a default server
-	server = oauth20.Server()
+	server = Server()
 	
 	# an example http server implementation
 	from wsgiref.simple_server import make_server
@@ -66,6 +67,7 @@ Here is how easy it is to get an OAuth provider up and running:
 	
 	httpd = make_server('', 8000, simple_server)
 	httpd.serve_forever()
+```
 
 Keep in mind that such a provider provides limited functionality, however implements most of what we are trying to provide in an entirely tolerable amount of code. When using only the `Server`, `Code`, and `Token` primitives, all information is stored in memory and is entirely vacuated upon each server restart.
 
